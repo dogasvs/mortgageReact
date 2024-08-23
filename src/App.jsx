@@ -5,7 +5,7 @@ function App() {
   const [mortgageAmount, setMortgageAmount] = useState('');
   const [mortgageTerm, setMortgageTerm] = useState('');
   const [interestRate, setInterestRate] = useState('');
-  const [monthlyPayment, setMonthlyPayment] = useState('');
+  const [monthlyTotalPayment, setMonthlyPayment] = useState('');
   const [totalPayment, setTotalPayment] = useState('');
 
   function CalculateMortgage() {
@@ -30,10 +30,17 @@ function App() {
     <div className="container">
       <div className="getInformByUser">
         <Header />
-        <GetInformation CalculateMortgage={CalculateMortgage} />
+        <GetInformation
+         CalculateMortgage={CalculateMortgage}
+         mortgageAmount={mortgageAmount}
+         mortgageTerm={mortgageTerm}
+         interestRate={interestRate}
+         setMortgageAmount={setMortgageAmount}
+         setMortgageTerm={setMortgageTerm}
+         setInterestRate={setInterestRate} />
       </div>
       <div className="mortgageResult">
-        <MortgageResultContainer monthlyPayment={monthlyPayment} totalPayment={totalPayment} />
+        <MortgageResultContainer monthlyTotalPayment={monthlyTotalPayment} totalPayment={totalPayment} />
       </div>
     </div>
   )
@@ -48,24 +55,28 @@ function Header() {
   )
 }
 
-function GetInformation({CalculateMortgage}) {
+function GetInformation({ mortgageAmount, mortgageTerm, interestRate, setMortgageAmount, setMortgageTerm, setInterestRate, CalculateMortgage }) {
   return (
     <div className="getInformation">
       <div className="mortgageAmount">
       <p>Mortgage Amount</p>
-      <input type="number" />
+      <input type="number" 
+          value={mortgageAmount} 
+          onChange={(e) => setMortgageAmount(e.target.value)} />
       <img src="img/pound.png" alt="pound" />
       </div>
 
       <div className="mortgage">
         <div className="mortageItem">
           <p>Mortgage Term</p>
-          <input type="number" />
+          <input type="number"  value={mortgageTerm} 
+            onChange={(e) => setMortgageTerm(e.target.value)}  />
           <img className='termImg' src="img/years.png" alt="years yazisi" />
         </div>
         <div className="mortageItem">
           <p>Interest Rate </p>
-          <input type="number" defaultValue={5.25} />
+          <input type="number" value={interestRate} 
+            onChange={(e) => setInterestRate(e.target.value)}  />
           <img className='faizImg' src="img/yuzde.png" alt="yuzdelik isareti" />
         </div>
       </div>
