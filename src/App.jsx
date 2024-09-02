@@ -21,15 +21,23 @@ function App() {
     const totalPayment = monthlyTotalPayment * totalTerm;
     //state kaydediyoruz
     setMonthlyPayment(monthlyTotalPayment.toFixed(2));
-    setTotalPayment(totalPayment.toFixed(2)); //toFixedı sema abladan baktım
+    setTotalPayment(totalPayment.toFixed(2)); 
 
     console.log(monthlyTotalPayment, totalPayment);
+  }
+
+  function clearAll() { 
+    setMortgageAmount(''); 
+    setMortgageTerm('');    
+    setInterestRate('');  
+    setMonthlyPayment(''); 
+    setTotalPayment('');
   }
 
   return (
     <div className="container">
       <div className="getInformByUser">
-        <Header />
+        <Header clearAll={clearAll} />
         <GetInformation
          CalculateMortgage={CalculateMortgage}
          mortgageAmount={mortgageAmount}
@@ -46,11 +54,11 @@ function App() {
   )
 }
 
-function Header() {
+function Header({clearAll}) {
   return (
     <div className="header">
       <h3>Mortgage Calculator</h3>
-      <button> Clear All </button>
+      <button onClick={clearAll}> Clear All </button>
     </div>
   )
 }
